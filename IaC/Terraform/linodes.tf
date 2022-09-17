@@ -1,7 +1,7 @@
 data "linode_profile" "me" {}
 
 resource "linode_instance" "vm" {
-  count            = 3
+  count            = 1
   label            = "hackthebox-${count.index}"
   image            = var.image
   region           = var.region

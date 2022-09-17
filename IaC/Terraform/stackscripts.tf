@@ -24,6 +24,10 @@ fi
 
 hostname $NODE_LABEL
 
+git clone https://github.com/NaughtRobot/automagic-jank.git
+cd automagic-jank
+git checkout ansible
+ansible-playbook ./CaC/Ansible/$(hostname | cut -d '-' -f 1).yml
 
 EOF
 }
