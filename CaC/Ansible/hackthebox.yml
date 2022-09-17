@@ -1,0 +1,12 @@
+---
+- name: Hack The Box Lab Setup
+  hosts: localhost
+  tasks:
+    - name: Add 'Naught Robot' user.
+      ansible.builtin.user:
+        name: naughtrobot
+        comment: NaughtRobot 
+        uid: 1001
+        group: sudo
+        createhome: yes
+        home: /home/naughtrobot
