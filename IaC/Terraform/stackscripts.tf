@@ -1,12 +1,12 @@
 resource "linode_stackscript" "install_ansible" {
   label       = "Hack The Box Setup"
   description = "Install Ansible and Configure Host"
-   images      = ["linode/ubuntu22.04"]
+  images      = ["linode/ubuntu22.04"]
   rev_note    = "Initial Version"
   script      = <<EOF
 #!/bin/bash
 
-#<UDF name="NODE_LABEL" label="Node Label">
+#<UDF name="NODE_ROLE" label="The node's role. Used during configuration.">
 
 if [ -f /etc/apt/sources.list ]; then
    apt update
@@ -22,12 +22,8 @@ else
    exit
 fi
 
-hostname $NODE_LABEL
-
 git clone https://github.com/NaughtRobot/automagic-jank.git
-cd automagic-jank
-git checkout ansible
-ansible-playbook ./CaC/Ansible/$(hostname | cut -d '-' -f 1).yml
+ansible-playbook ./automagic-jank/CaC/Ansible/$NODE_ROLE.yml
 
 EOF
 }
