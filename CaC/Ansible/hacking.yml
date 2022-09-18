@@ -3,17 +3,19 @@
   hosts: localhost
   connection: local
   become: true
+  vars:
+    user: naughtrobot
   tasks:
     - name: Create User
       ansible.builtin.user:
-        name: naughtrobot
+        name: "{{ user }}"
         state: present
         shell: /bin/bash
-        password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) }}"
+        password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) | password_hash('sha512') }}"
         groups: "sudo"
         append: yes
     - name: Deploy SSH Public Key
       ansible.posix.authorized_key:
-        user: naughtrobot
+        user: "{{ user }}"
         state: present
-        key: https://github.com/NaughtRobot/automagic-jank/blob/main/CaC/Ansible/SSHKeys/naughtrobot.key.pub
+        key: "{{ lookup('file', './SSHKeys/' + user + '.key.pub') }}"
