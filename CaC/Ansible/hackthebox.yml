@@ -1,13 +1,21 @@
 ---
-- name: Hack The Box Lab Setup
-  hosts: localhost
-  connection: local
+- name: "Hack The Box Lab Setup"
+  hosts: "localhost"
+  connection: "local"
   tasks:
-    - name: Add 'Naught Robot' user.
-      ansible.builtin.user:
-        name: naughtrobot
-        comment: NaughtRobot 
-        uid: 1001
-        group: sudo
-        createhome: yes
-        home: /home/naughtrobot
+    - name: "Create user accounts and add users to groups"
+      user:
+        name: "{{ item }}"
+        groups: "admin"
+      with_items: "{{ users }}"
+    - name: "Add authorized keys"
+      authorized_key:
+        user: "{{ item }}"
+        key: "{{ lookup('file', 'files/'+ item + '.key.pub') }}"
+      with_items: "{{ users }}"
+    - name: "Allow admin users to sudo without a password"
+      lineinfile:
+        dest: "/etc/sudoers" # path: in version 2.3
+        state: "present"
+        regexp: "^%admin"
+        line: "%admin ALL=(ALL) NOPASSWD: ALL"
