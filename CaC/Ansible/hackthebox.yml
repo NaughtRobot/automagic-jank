@@ -1,6 +1,7 @@
 ---
 - name: Hack The Box Lab Setup
   hosts: localhost
+  connection: local
   tasks:
     - name: Add 'Naught Robot' user.
       ansible.builtin.user:

@@ -21,3 +21,9 @@ variable "image" {
   type        = string
   default     = "linode/ubuntu22.04"
 }
+
+variable "hacking_vm_count" {
+  description = "Number of hacking VMs to create"
+  type        = number
+  default     = 0
+}
