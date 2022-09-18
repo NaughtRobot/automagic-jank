@@ -9,16 +9,16 @@
     - name: "Create user accounts and add users to groups"
       user:
         name: "{{ item }}"
-        groups: "admin"
+        groups: "sudo"
       with_items: "{{ users }}"
     - name: "Add authorized keys"
       authorized_key:
         user: "{{ item }}"
-        key: "{{ lookup('file', 'files/'+ item + '.key.pub') }}"
+        key: "{{ lookup('file', 'SSHKeys/'+ item + '.key.pub') }}"
       with_items: "{{ users }}"
     - name: "Allow admin users to sudo without a password"
       lineinfile:
-        dest: "/etc/sudoers" # path: in version 2.3
+        dest: "/etc/sudoers"
         state: "present"
-        regexp: "^%admin"
-        line: "%admin ALL=(ALL) NOPASSWD: ALL"
+        regexp: "^%sudo"
+        line: "%sudo ALL=(ALL) NOPASSWD: ALL"
