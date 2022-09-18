@@ -1,7 +1,7 @@
 resource "linode_firewall_device" "hackthebox" {
-    count       = length(linode_instance.hackthebox)
-    firewall_id = linode_firewall.default.id
-    entity_id = element(linode_instance.hackthebox.*.id, count.index)
+  count       = length(linode_instance.hackthebox)
+  firewall_id = linode_firewall.default.id
+  entity_id   = element(linode_instance.hackthebox.*.id, count.index)
 }
 
 resource "linode_firewall" "default" {
