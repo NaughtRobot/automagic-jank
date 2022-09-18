@@ -5,9 +5,9 @@ resource "random_password" "password" {
   special = true
 }
 
-resource "linode_instance" "hackthebox" {
+resource "linode_instance" "hacking" {
   count            = var.hacking_vm_count
-  label            = "hackthebox-${count.index}"
+  label            = "hacking-${count.index}"
   image            = var.image
   region           = var.region
   type             = var.instance_type
@@ -15,6 +15,6 @@ resource "linode_instance" "hackthebox" {
   authorized_users = [data.linode_profile.me.username]
   stackscript_id   = linode_stackscript.install_ansible.id
   stackscript_data = {
-    "NODE_ROLE" = "hackthebox"
+    "NODE_ROLE" = "hacking"
   }
 }
