@@ -1,6 +1,7 @@
 ---
 - name: Setup Hacking Lab VM
-  hosts: all
+  hosts: localhost
+  connection: local
   become: true
   tasks:
     - name: Create User
