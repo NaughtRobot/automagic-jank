@@ -27,3 +27,9 @@ variable "hacking_vm_count" {
   type        = number
   default     = 0
 }
+
+variable "default_vm_count" {
+  description = "Default number of VM resources to create."
+  type        = number
+  default     = 1
+}

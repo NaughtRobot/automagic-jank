@@ -25,3 +25,9 @@
         state: present
         regexp: "^%sudo"
         line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+    - name: Install Packages
+      apt: 
+        name: 
+          - openvpn
+        state: latests
+        cache_valid_time: 3600

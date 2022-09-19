@@ -1,0 +1,12 @@
+---
+- name: Setup Webserver
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Install Packages
+      apt: 
+        name: 
+          - nginx
+        state: latests
+        cache_valid_time: 3600
