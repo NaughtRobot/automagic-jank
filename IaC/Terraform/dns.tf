@@ -38,3 +38,10 @@ resource "linode_domain_record" "AAAA-web" {
   record_type = "AAAA"
   target      = trimsuffix(element(linode_instance.web.*.ipv6, count.index), "/128")
 }
+
+resource "linode_domain_record" "CNAME-web" {
+  domain_id  = linode_domain.naughtrobot_com.id
+  name = "www"
+  record_type = "CNAME"
+  target = "web-0.naughtrobot.com"
+}
