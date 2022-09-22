@@ -19,28 +19,3 @@ resource "linode_firewall" "default" {
   inbound_policy  = "DROP"
   outbound_policy = "ACCEPT"
 }
-
-resource "linode_firewall" "web" {
-  label = "web"
-
-  inbound {
-    label    = "ssh"
-    action   = "ACCEPT"
-    protocol = "TCP"
-    ports    = "22"
-    ipv4     = ["0.0.0.0/0"]
-    ipv6     = ["::/0"]
-  }
-
-  inbound {
-    label    = "https"
-    action   = "ACCEPT"
-    protocol = "TCP"
-    ports    = "443"
-    ipv4     = ["0.0.0.0/0"]
-    ipv6     = ["::/0"]
-  }
-
-  inbound_policy  = "DROP"
-  outbound_policy = "ACCEPT"
-}

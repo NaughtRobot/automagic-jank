@@ -29,5 +29,5 @@
       apt: 
         name: 
           - openvpn
-        state: latests
+        state: latest
         cache_valid_time: 3600
