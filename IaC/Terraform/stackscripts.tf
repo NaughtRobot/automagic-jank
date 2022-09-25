@@ -1,7 +1,7 @@
 resource "linode_stackscript" "install_ansible" {
   label       = "Hack The Box Setup"
   description = "Install Ansible and Configure Host"
-  images      = ["linode/ubuntu22.04"]
+  images      = ["linode/kali"]
   rev_note    = "Initial Version"
   script      = <<EOF
 #!/bin/bash
