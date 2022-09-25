@@ -25,7 +25,7 @@ variable "mysterium_image" {
 variable "hacking_image" {
   description = "Instnace OS"
   type        = string
-  default     = "linode/ubuntu22.04"
+  default     = "linode/kali"
 }
 
 variable "hacking_vm_count" {

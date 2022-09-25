@@ -22,3 +22,19 @@ resource "linode_domain_record" "AAAA-hacking" {
   record_type = "AAAA"
   target      = trimsuffix(element(linode_instance.hacking.*.ipv6, count.index), "/128")
 }
+
+resource "linode_domain_record" "A-mysterium-uk-node" {
+  count       = length(linode_instance.mysterium-uk-node)
+  domain_id   = linode_domain.naughtrobot_com.id
+  name        = element(linode_instance.mysterium-uk-node.*.label, count.index)
+  record_type = "A"
+  target      = element(linode_instance.mysterium-uk-node.*.ip_address, count.index)
+}
+
+resource "linode_domain_record" "AAAA-mysterium-uk-node" {
+  count       = length(linode_instance.mysterium-uk-node)
+  domain_id   = linode_domain.naughtrobot_com.id
+  name        = element(linode_instance.mysterium-uk-node.*.label, count.index)
+  record_type = "AAAA"
+  target      = trimsuffix(element(linode_instance.mysterium-uk-node.*.ipv6, count.index), "/128")
+}

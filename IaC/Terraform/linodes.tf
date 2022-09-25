@@ -27,6 +27,6 @@ resource "linode_instance" "mysterium-uk-node" {
   root_pass      = random_password.password.result
   stackscript_id = linode_stackscript.install_ansible.id
   stackscript_data = {
-    "NODE_RODE" = "mysterium"
+    "NODE_ROLE" = "mysterium"
   }
 }
