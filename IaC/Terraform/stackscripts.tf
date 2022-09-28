@@ -1,7 +1,7 @@
 resource "linode_stackscript" "install_ansible" {
   label       = "Install Ansible"
   description = "Install Ansible and Configures Host"
-  images      = [var.mysterium_image, var.hacking_image]
+  images      = [var.default_image, var.hacking_image]
   rev_note    = "Initial Version"
   script      = <<EOF
 #!/bin/bash
@@ -17,6 +17,8 @@ exec 5>&2
 # Redirect stdout and stderr to a file
 exec > /root/StackScript.out
 exec 2>&1
+
+DEBIAN_FRONTEND=noninteractive
 
 if [ -f /etc/apt/sources.list ]; then
    apt update
