@@ -6,6 +6,16 @@
   vars:
     user: naughtrobot
   tasks:
+    - name: Update and Upgrade Apt Packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
+    - name: Add hushlogin File to /etc/skel
+      file:
+        path: "/etc/skel/.hushlogin"
+        state: touch
     - name: Create User
       ansible.builtin.user:
         name: "{{ user }}"
@@ -28,6 +38,7 @@
     - name: Install Packages
       apt: 
         name: 
+          - kali-linux-headless
           - openvpn
         state: latest
-        cache_valid_time: 3600
+        cache_valid_time: 86400
