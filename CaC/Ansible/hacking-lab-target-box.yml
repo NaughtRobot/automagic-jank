@@ -46,7 +46,6 @@
     - name: Install Packages
       apt: 
         name: 
-          - kali-linux-headless
-          - openvpn
+          - kali-linux-labs
         state: latest
         cache_valid_time: 86400

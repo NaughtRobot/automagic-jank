@@ -7,18 +7,34 @@ resource "linode_domain" "naughtrobot_com" {
   refresh_sec = "300"
 }
 
-resource "linode_domain_record" "A-hacking" {
-  count       = length(linode_instance.hacking)
+resource "linode_domain_record" "A-hackin-lab-attack" {
+  count       = length(linode_instance.hacking_lab_attack)
   domain_id   = linode_domain.naughtrobot_com.id
-  name        = element(linode_instance.hacking.*.label, count.index)
+  name        = element(linode_instance.hacking_lab_attack.*.label, count.index)
   record_type = "A"
-  target      = element(linode_instance.hacking.*.ip_address, count.index)
+  target      = element(linode_instance.hacking_lab_attack.*.ip_address, count.index)
 }
 
-resource "linode_domain_record" "AAAA-hacking" {
-  count       = length(linode_instance.hacking)
+resource "linode_domain_record" "AAAA-hacking-lab-attack" {
+  count       = length(linode_instance.hacking_lab_attack)
   domain_id   = linode_domain.naughtrobot_com.id
-  name        = element(linode_instance.hacking.*.label, count.index)
+  name        = element(linode_instance.hacking_lab_attack.*.label, count.index)
   record_type = "AAAA"
-  target      = trimsuffix(element(linode_instance.hacking.*.ipv6, count.index), "/128")
+  target      = trimsuffix(element(linode_instance.hacking_lab_attack.*.ipv6, count.index), "/128")
+}
+
+resource "linode_domain_record" "A-hackin-lab-target" {
+  count       = length(linode_instance.hacking_lab_target)
+  domain_id   = linode_domain.naughtrobot_com.id
+  name        = element(linode_instance.hacking_lab_target.*.label, count.index)
+  record_type = "A"
+  target      = element(linode_instance.hacking_lab_target.*.ip_address, count.index)
+}
+
+resource "linode_domain_record" "AAAA-hacking-lab-target" {
+  count       = length(linode_instance.hacking_lab_target)
+  domain_id   = linode_domain.naughtrobot_com.id
+  name        = element(linode_instance.hacking_lab_target.*.label, count.index)
+  record_type = "AAAA"
+  target      = trimsuffix(element(linode_instance.hacking_lab_target.*.ipv6, count.index), "/128")
 }

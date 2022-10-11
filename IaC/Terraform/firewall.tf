@@ -14,8 +14,8 @@ resource "linode_firewall" "default" {
   outbound_policy = "ACCEPT"
 }
 
-resource "linode_firewall_device" "hacking" {
-  count       = length(linode_instance.hacking)
+resource "linode_firewall_device" "hacking-lab-attack" {
+  count       = length(linode_instance.hacking_lab_attack)
   firewall_id = linode_firewall.default.id
-  entity_id   = element(linode_instance.hacking.*.id, count.index)
+  entity_id   = element(linode_instance.hacking_lab_attack.*.id, count.index)
 }

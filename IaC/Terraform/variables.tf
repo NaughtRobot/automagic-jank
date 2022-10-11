@@ -22,14 +22,20 @@ variable "default_image" {
   default     = "linode/ubuntu22.04"
 }
 
-variable "hacking_image" {
+variable "hacking_lab_image" {
   description = "Instnace OS"
   type        = string
   default     = "linode/kali"
 }
 
-variable "hacking_vm_count" {
-  description = "Number of hacking VMs to create"
+variable "hacking_lab_attack_box_vm_count" {
+  description = "Number of hacking lab attack VMs to create"
+  type        = number
+  default     = 0
+}
+
+variable "hacking_lab_target_box_vm_count" {
+  description = "Number of hacking lab target VMs to create"
   type        = number
   default     = 0
 }

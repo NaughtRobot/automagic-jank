@@ -1,7 +1,7 @@
 resource "linode_stackscript" "install_ansible" {
   label       = "Install Ansible"
   description = "Install Ansible and Configures Host"
-  images      = [var.default_image, var.hacking_image]
+  images      = [var.default_image, var.hacking_lab_image]
   rev_note    = "Initial Version"
   script      = <<EOF
 #!/bin/bash
