@@ -16,13 +16,22 @@
       ansible.builtin.user:
         name: "{{ user }}"
         state: present
+        shell: /usr/bin/zsh
         password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) | password_hash('sha512') }}"
         groups: "sudo"
         append: yes
+    - name: Copy ZSH Config to User's Home Dir
+      ansible.builtin.copy:
+        src: "/etc/skel/.zshrc"
+        dest: "/home/{{ user }}"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0600'
     - name:  Add hushlogin File to Home Dir
-      file:
+      ansible.builtin.file:
         path: "/home/{{ user }}/.hushlogin"
         state: touch
+        mode: '0644'
     - name: Deploy SSH Public Key
       ansible.posix.authorized_key:
         user: "{{ user }}"
