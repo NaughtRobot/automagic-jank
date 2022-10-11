@@ -15,5 +15,6 @@ resource "linode_instance" "hacking" {
   stackscript_id = linode_stackscript.install_ansible.id
   stackscript_data = {
     "NODE_ROLE" = "hacking"
+    "HOST_NAME" = "hacking-${count.index}.${linode_domain.naughtrobot_com.domain}"
   }
 }

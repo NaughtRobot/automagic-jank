@@ -20,8 +20,10 @@
       ansible.builtin.user:
         name: "{{ user }}"
         state: present
-        shell: /bin/bash
+        shell: /usr/bin/zsh
         password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) | password_hash('sha512') }}"
+        create_home: true
+        skeleton: /etc/skel
         groups: "sudo"
         append: yes
     - name: Deploy SSH Public Key

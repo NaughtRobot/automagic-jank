@@ -7,6 +7,7 @@ resource "linode_stackscript" "install_ansible" {
 #!/bin/bash
 
 #<UDF name="NODE_ROLE" label="The node's role. Used during configuration.">
+#<UDF name="HOST_NAME" label="Hostname to use for the node.">
 
 set -e
 
@@ -33,6 +34,8 @@ else
    echo "Your distribution is not supported by this StackScript"
    exit
 fi
+
+hostname $HOST_NAME
 
 git clone https://github.com/NaughtRobot/automagic-jank.git
 ansible-playbook ./automagic-jank/CaC/Ansible/$NODE_ROLE.yml
