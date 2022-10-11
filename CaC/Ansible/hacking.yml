@@ -12,20 +12,17 @@
         upgrade: yes
         update_cache: yes
         cache_valid_time: 86400
-    - name: Add hushlogin File to /etc/skel
-      file:
-        path: "/etc/skel/.hushlogin"
-        state: touch
     - name: Create User
       ansible.builtin.user:
         name: "{{ user }}"
         state: present
-        shell: /usr/bin/zsh
         password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) | password_hash('sha512') }}"
-        create_home: true
-        skeleton: /etc/skel
         groups: "sudo"
         append: yes
+    - name:  Add hushlogin File to Home Dir
+      file:
+        path: "/home/{{ user }}/.hushlogin"
+        state: touch
     - name: Deploy SSH Public Key
       ansible.posix.authorized_key:
         user: "{{ user }}"
