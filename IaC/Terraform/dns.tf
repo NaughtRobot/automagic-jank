@@ -1,3 +1,13 @@
+resource "linode_domain" "nokarateinthepit_com" {
+  type        = "master"
+  domain      = "nokarateinthepit.com"
+  soa_email   = "naughtrobot@pm.me"
+  ttl_sec     = "300"
+  expire_sec  = "300"
+  refresh_sec = "300"
+}
+
+# NOT IN USE
 resource "linode_domain" "naughtrobot_com" {
   type        = "master"
   domain      = "naughtrobot.com"

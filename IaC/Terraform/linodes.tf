@@ -12,6 +12,7 @@ resource "linode_instance" "hacking_lab_attack" {
   region         = var.region
   type           = var.instance_type
   root_pass      = random_password.password.result
+  private_ip     = true
   stackscript_id = linode_stackscript.install_ansible.id
   stackscript_data = {
     "NODE_ROLE" = "hacking-lab-attack-box"
@@ -26,6 +27,7 @@ resource "linode_instance" "hacking_lab_target" {
   region         = var.region
   type           = var.instance_type
   root_pass      = random_password.password.result
+  private_ip     = true
   stackscript_id = linode_stackscript.install_ansible.id
   stackscript_data = {
     "NODE_ROLE" = "hacking-lab-target-box"
