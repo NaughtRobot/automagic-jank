@@ -1,0 +1,45 @@
+---
+- name: Setup Nginx Webserver
+  hosts: localhost
+  connection: local
+  become: true
+  vars:
+    user: naughtrobot
+  tasks:
+    - name: Update and Upgrade Apt Packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
+    - name: Create User
+      ansible.builtin.user:
+        name: "{{ user }}"
+        state: present
+        shell: /usr/bin/zsh
+        password: "{{ lookup('ansible.builtin.password', '/dev/null', seed=inventory_hostname) | password_hash('sha512') }}"
+        groups: "sudo"
+        append: yes
+    - name: Copy ZSH Config to User's Home Dir
+      ansible.builtin.copy:
+        src: "/etc/skel/.zshrc"
+        dest: "/home/{{ user }}"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0600'
+    - name:  Add hushlogin File to Home Dir
+      ansible.builtin.file:
+        path: "/home/{{ user }}/.hushlogin"
+        state: touch
+        mode: '0644'
+    - name: Deploy SSH Public Key
+      ansible.posix.authorized_key:
+        user: "{{ user }}"
+        state: present
+        key: "{{ lookup('file', './SSHKeys/' + user + '.key.pub') }}"
+    - name: Install Packages
+      apt: 
+        name: 
+          - nginx
+        state: latest
+        cache_valid_time: 86400
