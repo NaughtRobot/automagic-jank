@@ -6,12 +6,6 @@
   vars:
     user: naughtrobot
   tasks:
-    - name: Update and Upgrade Apt Packages
-      become: true
-      apt:
-        upgrade: yes
-        update_cache: yes
-        cache_valid_time: 86400
     - name: Create User
       ansible.builtin.user:
         name: "{{ user }}"
@@ -37,6 +31,12 @@
         user: "{{ user }}"
         state: present
         key: "{{ lookup('file', './SSHKeys/' + user + '.key.pub') }}"
+    - name: Update and Upgrade Apt Packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400
     - name: Install Packages
       apt: 
         name: 
