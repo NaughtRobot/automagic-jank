@@ -10,7 +10,7 @@ resource "linode_firewall" "web" {
     ipv6     = ["::/0"]
   }
 
-    inbound {
+  inbound {
     label    = "http"
     action   = "ACCEPT"
     protocol = "TCP"
@@ -18,7 +18,7 @@ resource "linode_firewall" "web" {
     ipv6     = ["::/0"]
   }
 
-    inbound {
+  inbound {
     label    = "https"
     action   = "ACCEPT"
     protocol = "TCP"
