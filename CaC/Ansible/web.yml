@@ -49,3 +49,17 @@
           - nginx
         state: latest
         cache_valid_time: 86400
+    - name: Copy nginx.conf
+      ansible.builtin.copy:
+        src: './Files/web/nginx.conf'
+        dest: '/etc/nginx'
+        owner: www-data
+        group: www-data
+        directory_mode:
+    - name: Create Let's Encrypt Directory
+      ansible.builtin.file:
+        path: /var/www/_letsencrypt
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0770'

@@ -14,7 +14,7 @@ resource "linode_instance" "web" {
   root_pass      = random_password.password.result
   stackscript_id = linode_stackscript.install_ansible.id
   stackscript_data = {
-    "NODE_ROLE" = "nginx"
+    "NODE_ROLE" = "web"
     "HOST_NAME" = "www-${count.index}.${linode_domain.nokarateinthepit_com.domain}"
   }
 }
