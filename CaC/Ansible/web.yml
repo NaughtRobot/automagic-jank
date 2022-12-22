@@ -52,10 +52,30 @@
     - name: Copy nginx.conf
       ansible.builtin.copy:
         src: './Files/web/nginx.conf'
-        dest: '/etc/nginx'
+        dest: '/etc/nginx/'
+        owner: www-data
+        group: www-data
+    - name: Copy nginxconfig.io Directory
+      ansible.builtin.copy:
+        src: './Files/web/nginxconfig.io'
+        dest: '/etc/nginx/'
         owner: www-data
         group: www-data
         directory_mode:
+    - name: Copy sites-available Directory
+      ansible.builtin.copy:
+        src: './Files/web/sites-available'
+        dest: '/etc/nginx/'
+        owner: www-data
+        group: www-data
+        directory_mode:
+    - name: Create sites-enabled Symlink
+      ansible.builtin.fie:
+        src: /etc/nginx/sites-available/nokarateinthepit.com.conf
+        dest: /etc/nginx/sites-enabled/nokarateinthepit.com.conf
+        owner: www-data
+        group: www-data
+        state: link
     - name: Create Let's Encrypt Directory
       ansible.builtin.file:
         path: /var/www/_letsencrypt
